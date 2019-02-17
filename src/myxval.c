@@ -176,7 +176,8 @@ myxval(int n_xval, CpTable cptable_head, int *x_grp, int maxcat, char **errmsg,
         xtree->complexity = xtree->risk;
 
 
-        partition(1, xtree, &temp, 0, k, minsize, split_Rule, split_alpha, split_eta, bucketnum, bucketMax, 
+        partition(1, xtree, &temp, 0, k, minsize, split_Rule, split_alpha, //split_eta, 
+        bucketnum, bucketMax, 
                   xtrain_to_est_ratio);
         
 
