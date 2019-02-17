@@ -15,7 +15,7 @@
 
 
 void
-bsplit(pNode me, int n1, int n2, int minsize, int split_Rule, double alpha, double eta, int bucketnum, int bucketMax,
+bsplit(pNode me, int n1, int n2, int minsize, int split_Rule, double alpha,  int bucketnum, int bucketMax, //double eta,
        double train_to_est_ratio)
 {Rprintf("bsplit.c\n");
     int i, j, k;
