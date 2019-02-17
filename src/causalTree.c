@@ -383,8 +383,8 @@ Rprintf("split rule in causal tree.c is %d.\n", split_Rule);
      * Do the basic tree
      */
     
-    partition(1, tree, &temp, 0, n, minsize, split_Rule, split_alpha, split_eta,  bucketnum, bucketMax,
-              train_to_est_ratio); // temp store sumrisk
+    partition(1, tree, &temp, 0, n, minsize, split_Rule, split_alpha,   bucketnum, bucketMax,
+              train_to_est_ratio); // temp store sumrisk split_eta,
   
     CpTable cptable = (CpTable) ALLOC(1, sizeof(cpTable));
 
