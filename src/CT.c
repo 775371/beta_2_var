@@ -118,7 +118,10 @@ CTss(int n, double *y[], double *value,  double *con_mean, double *tr_mean,
     effects=beta_2;
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    var_beta = eta*(beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt)) + (1-eta)*(beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt));
+    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+	    
+    var_beta = eta_1*(beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt)) + eta_2*(beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt));
     
     *tr_mean= temp1 / ttreat;
     *con_mean= temp0 / (twt - ttreat);
@@ -126,7 +129,7 @@ CTss(int n, double *y[], double *value,  double *con_mean, double *tr_mean,
 
     //*risk = 4 * twt * max_y * max_y - alpha * twt * effect * effect + 
     //(1 - alpha) * (1 + train_to_est_ratio) * twt * (tr_var /ttreat  + con_var / (twt - ttreat));
-    *risk = 4 * twt * max_y * max_y - alpha * twt * (eta*effect*effect+(1-eta)*effects*effects) 
+    *risk = 4 * twt * max_y * max_y - alpha * twt * (eta_1*effect*effect+eta_2*effects*effects) 
             + (1 - alpha) * (1 + train_to_est_ratio) * twt * ( var_beta);
     Rprintf("twt in CTss in CT.c %d.\n", twt);   
  }
@@ -215,11 +218,15 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
     beta_0 = (right_z_sum - beta_1 * right_y_sum -beta_2 * right_k_sum) / right_wt;
         
     temp = beta_1;
-    temps=beta_2;
+    temps= beta_2;
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    var_beta = eta*(beta1_sqr_sum / right_wt - beta_1 * beta_1 / (right_wt * right_wt) )+ 
-            (1-eta)*(beta2_sqr_sum / right_wt - beta_2 * beta_2 / (right_wt * right_wt));
+    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+	
+	
+    var_beta = eta_1*(beta1_sqr_sum / right_wt - beta_1 * beta_1 / (right_wt * right_wt) )+ 
+            (eta_2)*(beta2_sqr_sum / right_wt - beta_2 * beta_2 / (right_wt * right_wt));
     
     Rprintf("beta_1 in CTss in CT.c %d.\n", beta_1); 
     Rprintf("beta_2 in CTss in CT.c %d.\n", beta_2); 
@@ -238,7 +245,7 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
    /* node_effect = alpha * temp * temp * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
         * right_wt * (tr_var / right_tr  + con_var / (right_wt - right_tr));*/
    
-    node_effect = alpha * (eta*temp*temp+(1-eta)*temps*temps)  * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
+    node_effect = alpha * (eta_1*temp*temp+(eta_2)*temps*temps)  * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
         * right_wt * (var_beta);
  
  
@@ -337,10 +344,13 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
                     
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    var_beta = eta*(beta1_sqr_sum / left_wt - beta_1 * beta_1 / (left_wt * left_wt) ) + (1-eta)*(beta2_sqr_sum / left_wt - beta_2 * beta_2 / (left_wt * left_wt));
+    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+		    
+    var_beta = eta_1*(beta1_sqr_sum / left_wt - beta_1 * beta_1 / (left_wt * left_wt) ) + (eta_2)*(beta2_sqr_sum / left_wt - beta_2 * beta_2 / (left_wt * left_wt));
 
      
-    left_effect =  alpha *(eta*left_temp*left_temp+(1-eta)*left_temps*left_temps) * left_wt - (1 - alpha) * (1 + train_to_est_ratio) 
+    left_effect =  alpha *(eta_1*left_temp*left_temp+(eta_2)*left_temps*left_temps) * left_wt - (1 - alpha) * (1 + train_to_est_ratio) 
                     * left_wt * (var_beta);
 
                    
@@ -370,9 +380,13 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
                     
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    var_beta = eta * (beta1_sqr_sum / right_wt - beta_1 * beta_1 / (right_wt * right_wt)) + (1-eta) * (beta2_sqr_sum / right_wt - beta_2 * beta_2 / (right_wt * right_wt));
+		    
+    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+		    
+    var_beta = eta_1 * (beta1_sqr_sum / right_wt - beta_1 * beta_1 / (right_wt * right_wt)) + (eta_2) * (beta2_sqr_sum / right_wt - beta_2 * beta_2 / (right_wt * right_wt));
 
-    right_effect = alpha * (eta*right_temp*right_temp+(1-eta)*right_temps*right_temps)  * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
+    right_effect = alpha * (eta_1*right_temp*right_temp+(eta_2)*right_temps*right_temps)  * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
                     * right_wt * (var_beta);
                     
 /* right_temp = right_tr_sum / right_tr - (right_sum - right_tr_sum) / (right_wt - right_tr);
@@ -599,10 +613,12 @@ Rprintf("treatments_effect[i] in function CT in CT.c is %d\n", treatments_effect
 
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    left_temp = eta * beta1_sqr_sum+ (1-eta)* beta2_sqr_sum;
+    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+    left_temp = eta_1 * beta1_sqr_sum+ (eta_2)* beta2_sqr_sum;
     
-    var_beta = eta * (beta1_sqr_sum / n - beta_1 * beta_1 / (n * n)) + (1-eta)*(beta2_sqr_sum / n - beta_2 * beta_2 / (n * n));
-    left_effect = alpha * (eta * beta1_sqr_sum+ (1-eta)* beta2_sqr_sum) * left_wt - (1 - alpha) * (1 + train_to_est_ratio) 
+    var_beta = eta_1 * (beta1_sqr_sum / n - beta_1 * beta_1 / (n * n)) + (eta_2)*(beta2_sqr_sum / n - beta_2 * beta_2 / (n * n));
+    left_effect = alpha * (eta_1 * beta1_sqr_sum+ (eta_2)* beta2_sqr_sum) * left_wt - (1 - alpha) * (1 + train_to_est_ratio) 
                     * left_wt * (var_beta);
                     
                     
@@ -617,13 +633,15 @@ Rprintf("treatments_effect[i] in function CT in CT.c is %d\n", treatments_effect
     beta_0 = (right_z_sum - beta_1 * right_y_sum - beta_2 * right_k_sum) / right_n;
 
     beta1_sqr_sum = beta_1 * beta_1;
-    beta2_sqr_sum = beta_2 * beta_2;    
-    right_temp = eta * beta_1 * beta_1 + (1-eta) * beta_2 * beta_2;
+    beta2_sqr_sum = beta_2 * beta_2;   
+    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+    right_temp = eta_1 * beta_1 * beta_1 + (eta_2) * beta_2 * beta_2;
     
-    var_beta = eta*(beta1_sqr_sum / n - beta_1 * beta_1 / (n * n) ) + (1-eta)*(beta2_sqr_sum / n - beta_2 * beta_2 / (n * n));
+    var_beta = eta_1*(beta1_sqr_sum / n - beta_1 * beta_1 / (n * n) ) + (eta_2)*(beta2_sqr_sum / n - beta_2 * beta_2 / (n * n));
     
    
-    right_effect = alpha * (eta * beta_1 * beta_1 + (1-eta) * beta_2 * beta_2) * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
+    right_effect = alpha * (eta_1 * beta_1 * beta_1 + (eta_2) * beta_2 * beta_2) * right_wt - (1 - alpha) * (1 + train_to_est_ratio) 
                     * right_wt * (var_beta);
                     
              
