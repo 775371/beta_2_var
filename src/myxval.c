@@ -214,8 +214,8 @@ myxval(int n_xval, CpTable cptable_head, int *x_grp, int maxcat, char **errmsg,
                 
             } else if (crossmeth == 6) { Rprintf("crossmeth in myxevals.c is %d.\n",crossmeth);
                 //CT- dishonest
-                CTA_rundown(xtree, j, cp, xpred, xtemp, k, cv_alpha, //cv_eta
-                );
+                CTA_rundown(xtree, j, cp, xpred, xtemp, k, cv_alpha);  //cv_eta
+               
             } else if (crossmeth == 7) {
                 // user - honest (set as CT - honest temporarily)
                 userH_rundown(xtree, j, cp, xpred, xtemp, k, cv_alpha, xtrain_to_est_ratio, ct.propensity);
