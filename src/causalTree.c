@@ -128,8 +128,8 @@ causalTree(SEXP ncat2, SEXP split_Rule2, SEXP bucketnum2, SEXP bucketMax2, SEXP 
     split_alpha = asReal(split_alpha2);
     cv_alpha = asReal(cv_alpha2);
            //weight
-    split_eta = asReal(split_eta2);
-    cv_eta = asReal(cv_eta2);
+   // split_eta = asReal(split_eta2);
+   // cv_eta = asReal(cv_eta2);
            
            
     gamma=asReal(gamma2);
