@@ -7,7 +7,7 @@
 
 pNode branch(pNode tree, int obs);
 
-void bsplit(pNode me, int n1, int n2, int minsize, int split_Rule, double alpha, double eta,
+void bsplit(pNode me, int n1, int n2, int minsize, int split_Rule, double alpha, // double eta,
             int bucketnum, int bucketMax, double train_to_est_ratio);
 
 void choose_surg(int n1, int n2, int *y, double *x, int *order,
@@ -34,8 +34,8 @@ void mysort(int start, int stop, double *x, int *cvec);
 void nodesplit(pNode me, int nodenum, int n1, int n2, int *nleft, int *nright);
 
 int partition(int nodenum, pNode splitnode, double *sumrisk, int n1, int n2, 
-              int minsize, int split_Rule, double alpha, double eta, int bucketnum, int bucketMax, 
-              double train_to_est_ratio);
+              int minsize, int split_Rule, double alpha,  int bucketnum, int bucketMax,  
+              double train_to_est_ratio); //double eta,
 
 int print_tree(pNode me, int maxdepth);
 
@@ -43,7 +43,8 @@ int print_tree(pNode me, int maxdepth);
 SEXP causalTree(SEXP ncat2, SEXP split_Rule2, SEXP bucketnum2, SEXP bucketMax2, SEXP method2, 
                 SEXP crossmeth2, SEXP crosshonest2, SEXP opt2, SEXP minsize2, SEXP p2, 
                 SEXP ymat2, SEXP xmat2, SEXP xvals2, SEXP xgrp2, SEXP wt2, SEXP treatment2, SEXP treatments2, SEXP ny2,
-                SEXP cost2, SEXP xvar2, SEXP split_alpha2, SEXP cv_alpha2, SEXP split_eta2, SEXP cv_eta2, SEXP NumHonest2, SEXP gamma2);
+                SEXP cost2, SEXP xvar2, SEXP split_alpha2, SEXP cv_alpha2, //SEXP split_eta2, SEXP cv_eta2, 
+		SEXP NumHonest2, SEXP gamma2);
 
 void causalTree_callback0(int *nr);
 void causalTree_callback1(int n, double *y[], double *wt, double *z);
@@ -63,8 +64,10 @@ void fitH_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp,
 void fitA_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp, int k);
 
 void CTH_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp, int k, 
-                 double alpha, double eta, double xtrain_to_est_ratio, double propensity);
-void CTA_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp, int k, double alpha, double eta);
+                 double alpha, //double eta, 
+		 double xtrain_to_est_ratio, double propensity);
+void CTA_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp, int k, double alpha, //double eta
+		);
 
 void userH_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp, int k, 
                  double alpha, double xtrain_to_est_ratio, double propensity);
@@ -80,7 +83,8 @@ void surrogate(pNode me, int n1, int n2);
 
 void myxval(int n_xval, CpTable cptable_head, int *x_grp, int maxcat, char **errmsg, 
            int minsize, int *savesort, int split_Rule,
-           int crossmeth, double split_alpha, double cv_alpha, double split_eta, double cv_eta, int bucketnum, int bucketMax, double gamma);
+           int crossmeth, double split_alpha, double cv_alpha, //double split_eta, double cv_eta,
+	    int bucketnum, int bucketMax, double gamma);
 
 
 /* ---------------------- for xvalHelper --------------------- */
