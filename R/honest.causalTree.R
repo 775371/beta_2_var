@@ -8,7 +8,8 @@ honest.causalTree <- function(formula, data, weights, treatment, treatments, sub
 							  HonestSampleSize, split.Bucket, bucketNum = 10,
 							  bucketMax = 40, cv.option, cv.Honest, minsize = 2L, model = FALSE,
 							  x = FALSE, y = TRUE, propensity, control, split.alpha = 0.5, 
-							  cv.alpha = 0.5, cv.eta=0.5, split.eta=0.5,
+							  cv.alpha = 0.5, 
+			      #cv.eta=0.5, split.eta=0.5,
 			                                  cv.gamma=0.5, split.gamma=0.5, cost, ...)  { 
 
 	Call <- match.call()
@@ -172,16 +173,7 @@ honest.causalTree <- function(formula, data, weights, treatment, treatments, sub
 				stop("Invalid input for split.alpha. split.alpha should between 0 and 1.")
 			}
 		}
-		#check eta for weight
-		if(missing(split.eta)) {
-			# set default honest splitting alpha to 0.5
-			split.eta <- 1
-		} else {
-			# check split.alpha in [0, 1]
-			if (split.eta > 1 || split.eta < 0) {
-				stop("Invalid input for split.eta. split.eta should between 0 and 1.")
-			}
-		}
+		
 		
 	  #check for gamma for policy
 	  if(missing(split.gamma)) {
@@ -260,9 +252,9 @@ honest.causalTree <- function(formula, data, weights, treatment, treatments, sub
 		cv.alpha <- 0.5
 	}
 	
-	 if (missing(cv.eta)) {
-		cv.eta <- 0.5
-	}
+	# if (missing(cv.eta)) {
+	#	cv.eta <- 0.5
+	#}
 	
 	#for policy, set gamma (set for all presently)
 	if (missing(cv.gamma)) {
@@ -394,8 +386,8 @@ honest.causalTree <- function(formula, data, weights, treatment, treatments, sub
 					   as.integer(HonestSampleSize),
 					   as.double(cv.gamma),
 			       ##add weight
-			                   as.double(split.eta),
-					   as.double(cv.eta)
+			                   #as.double(split.eta),
+					   #as.double(cv.eta)
 					   )
 
 		nsplit <- nrow(ctfit$isplit) # total number of splits, primary and surrogate
