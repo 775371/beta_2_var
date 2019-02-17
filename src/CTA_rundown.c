@@ -90,7 +90,7 @@ CTA_rundown(pNode tree, int obs, double *cp, double *xpred, double *xtemp, int k
         double tree_con_mean = tree->controlMean[0];
 
         xtemp[i] = (*ct_xeval)(ct.ydata[obs2], ct.wt[obs2], ct.treatment[obs2], 
-                    tr_mean, con_mean, tree_tr_mean, tree_con_mean, alpha, eta);
+                    tr_mean, con_mean, tree_tr_mean, tree_con_mean, alpha); //eta
     }
     return;
 
