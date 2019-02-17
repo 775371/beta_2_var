@@ -402,7 +402,7 @@ Rprintf("split rule in causal tree.c is %d.\n", split_Rule);
         
         if (xvals > 1) {
             myxval(xvals, cptable, xgrp, maxcat, &errmsg, minsize, savesort, split_Rule,
-                   crossmeth, split_alpha, cv_alpha, split_eta, cv_eta, bucketnum, bucketMax,gamma);
+                   crossmeth, split_alpha, cv_alpha,  bucketnum, bucketMax,gamma); //split_eta, cv_eta,
         }
     }
     /*
