@@ -223,8 +223,9 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
     temps= beta_2;
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
-    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+    eta_1= (beta1_sqr_sum /right_wt- beta_1 * beta_1 / (right_wt* right_wt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /right_wt- beta_2 * beta_2 / (right_wt* right_wt))/(abs(beta_2));
+
 	
 	
     var_beta = eta_1*(beta1_sqr_sum / right_wt - beta_1 * beta_1 / (right_wt * right_wt) )+ 
@@ -346,8 +347,10 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
                     
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
-    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+		    
+    eta_1= (beta1_sqr_sum /left_wt- beta_1 * beta_1 / (left_wt* left_wt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /left_wt- beta_2 * beta_2 / (left_wt* left_wt))/(abs(beta_2));
+
 		    
     var_beta = eta_1*(beta1_sqr_sum / left_wt - beta_1 * beta_1 / (left_wt * left_wt) ) + (eta_2)*(beta2_sqr_sum / left_wt - beta_2 * beta_2 / (left_wt * left_wt));
 
@@ -383,8 +386,9 @@ void CT(int n, double *y[], double *x, int nclass, int edge, double *improve, do
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
 		    
-    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
-    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+   eta_1= (beta1_sqr_sum /right_wt- beta_1 * beta_1 / (right_wt* right_wt))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /right_wt- beta_2 * beta_2 / (right_wt* right_wt))/(abs(beta_2));
+
 		    
     var_beta = eta_1 * (beta1_sqr_sum / right_wt - beta_1 * beta_1 / (right_wt * right_wt)) + (eta_2) * (beta2_sqr_sum / right_wt - beta_2 * beta_2 / (right_wt * right_wt));
 
@@ -615,8 +619,9 @@ Rprintf("treatments_effect[i] in function CT in CT.c is %d\n", treatments_effect
 
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;
-    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
-    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+    eta_1= (beta1_sqr_sum /n- beta_1 * beta_1 / (n* n))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /n- beta_2 * beta_2 / (n* n))/(abs(beta_2));
+
     left_temp = eta_1 * beta1_sqr_sum+ (eta_2)* beta2_sqr_sum;
     
     var_beta = eta_1 * (beta1_sqr_sum / n - beta_1 * beta_1 / (n * n)) + (eta_2)*(beta2_sqr_sum / n - beta_2 * beta_2 / (n * n));
@@ -636,8 +641,10 @@ Rprintf("treatments_effect[i] in function CT in CT.c is %d\n", treatments_effect
 
     beta1_sqr_sum = beta_1 * beta_1;
     beta2_sqr_sum = beta_2 * beta_2;   
-    eta_1= (beta1_sqr_sum /twt- beta_1 * beta_1 / (twt* twt))/(abs(beta_1));
-    eta_2= (beta2_sqr_sum /twt- beta_2 * beta_2 / (twt* twt))/(abs(beta_2));
+		    
+    eta_1= (beta1_sqr_sum /n- beta_1 * beta_1 / (n* n))/(abs(beta_1));
+    eta_2= (beta2_sqr_sum /n- beta_2 * beta_2 / (n* n))/(abs(beta_2));
+
     right_temp = eta_1 * beta_1 * beta_1 + (eta_2) * beta_2 * beta_2;
     
     var_beta = eta_1*(beta1_sqr_sum / n - beta_1 * beta_1 / (n * n) ) + (eta_2)*(beta2_sqr_sum / n - beta_2 * beta_2 / (n * n));
