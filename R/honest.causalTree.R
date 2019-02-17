@@ -384,7 +384,7 @@ honest.causalTree <- function(formula, data, weights, treatment, treatments, sub
 					   as.double(split.alpha),
 					   as.double(cv.alpha),
 					   as.integer(HonestSampleSize),
-					   as.double(cv.gamma),
+					   as.double(cv.gamma)
 			       ##add weight
 			                   #as.double(split.eta),
 					   #as.double(cv.eta)
